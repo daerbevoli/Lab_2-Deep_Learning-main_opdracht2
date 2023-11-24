@@ -2,22 +2,11 @@ import torch
 
 from utilities.utils import mse
 
-test_input = torch.randn([3, 50, 100])
-test_target = torch.randn([3, 50, 100])
+rgb = [(0.5021, 0.1138, 0.9047), (0.2843, 0.0684, 0.6829), (0.1935, 0.5483, 0.3117),
+       (0.8017, 0.8733, 0.6258), (0.5914, 0.6004, 0.2893), (0.7038, 0.5983, 0.9914)]
 
-#print(test_input)
-#print(test_target)
-#a = mse(test_input, test_target)
-#print("a: ", a.item())
 
-loss = (test_target - test_input) ** 2
-print("loss: ", loss)
-n = len(test_target)
-sum = 0
-for i in range(n):
-    sum = sum + loss[i]
 
-print("sum: ",  torch.sum(sum)/len(test_target))
-print("sum2: ", (torch.sum((test_target - test_input) ** 2)) / len(test_target))
-print("sum correct: ", torch.nn.functional.mse_loss(test_input, test_target))
+tt = torch.FloatTensor(rgb)
+print(tt)
 
