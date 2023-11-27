@@ -21,7 +21,11 @@ class LinearRegression(nn.Module):
     def __init__(self):
         super().__init__()
         """START TODO: replace None with a Linear layer"""
-        self.linear_layer = nn.Linear(10, 10)
+        # A linear regression model is trying to find a relation between the input and the output
+        # Input: size of the given house -> 1 = in_features
+        # Output: price of the house based on the size -> 1 = out_features
+        # Single input feature to singe output feature
+        self.linear_layer = nn.Linear(1, 1)
         """END TODO"""
 
     def forward(self, x: torch.Tensor):
