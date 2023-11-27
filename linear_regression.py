@@ -22,13 +22,13 @@ if __name__ == "__main__":
 
     """START TODO: fill in the missing parts as mentioned by the comments."""
     # create a LinearRegression instance named model
-    model = None
+    model = LinearRegression()
     model.to(options.device)
-    # define the opimizer
+    # define the optimizer
     # (visit https://pytorch.org/docs/stable/optim.html?highlight=torch%20optim#module-torch.optim for more info)
-
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.00008)
     # train the model
-
+    utils.train_lin_model(model, optimizer, train_dataloader, options)
     """END TODO"""
 
     # test the model
