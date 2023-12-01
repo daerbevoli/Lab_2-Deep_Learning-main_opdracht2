@@ -26,7 +26,7 @@ if __name__ == "__main__":
     model.to(options.device)
     # define the optimizer
     # (visit https://pytorch.org/docs/stable/optim.html?highlight=torch%20optim#module-torch.optim for more info)
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.00008)
+    optimizer = torch.optim.SGD(model.parameters(), lr=options.lr)
     # train the model
     utils.train_lin_model(model, optimizer, train_dataloader, options)
     """END TODO"""
