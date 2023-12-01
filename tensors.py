@@ -14,7 +14,6 @@ def create_image(options: Options) -> torch.Tensor:
            (0.8017, 0.8733, 0.6258), (0.5914, 0.6004, 0.2893), (0.7038, 0.5983, 0.9914)]
 
     # Used to test knowledge of tensors
-    # not able to implement (yet)
 
     tt = torch.FloatTensor(rgb).to(options.device)
     return tt
@@ -64,7 +63,7 @@ def tensor_network():
     """START TODO: implement the update step with a learning rate of 0.5"""
     # use tensor operations, recall the following formula we've seen during class: x <- x - alpha * x'
     # Tensor.grad computes gradients for self , Learning from examples slide 62
-    lr = 0.5 # learning rate
+    lr = 0.0001 # learning rate
     weights = weights - lr*weights.grad
 
     """END TODO"""
