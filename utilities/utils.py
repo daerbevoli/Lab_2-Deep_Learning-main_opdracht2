@@ -38,9 +38,9 @@ def train_lin_model(model: LinearRegression, optimizer: torch.optim.Optimizer,
             size, price = data[:, 0].unsqueeze(1).to(options.device), data[:, 1].unsqueeze(1).to(options.device)
             """START TODO: implement some missing parts. look at the comments to see what needs to be done."""
             # Forward the size data through the model
-            forwarded_size = model.forward(size)
+            forwarded_size = model(size)
             # calculate the loss, use your self created mse loss
-            loss = mse(forwarded_size, size)
+            loss = mse(forwarded_size, price)
             # As mentioned before, the grads always needs to be zeroed before backprop (use your optimizer to do this)
             optimizer.zero_grad()
             # propagate the loss backward
@@ -77,15 +77,15 @@ def test_lin_reg_plot(model: LinearRegression, test_data: DataLoader, options: L
     # plot real and estimated data points
     with torch.no_grad():
         for data in test_data:
-            plt.scatter(data.cpu()[:, 0], data.cpu()[:, 1], c="g")
+            plt.scatter(data.cpu()[:, 0], data.cpu()[:, 1], c="#377eb8")
             size, price = data[:, 0].unsqueeze(1), data[:, 1].unsqueeze(1)
             estimated_price = model(size)
-            plt.scatter(data.cpu()[:, 0], estimated_price.cpu(), c="r")
+            plt.scatter(data.cpu()[:, 0], estimated_price.cpu(), c="#ff7f00")
 
         # plot line
         x = torch.linspace(options.min_house_size, options.max_house_size, 50000, device="cpu")
-        plt.plot(x.numpy(), 5000 * x + 100000, "g")
-        plt.plot(x.numpy(), model(x.unsqueeze(1).to(options.device)).cpu().numpy(), "r")
+        plt.plot(x.numpy(), 5000 * x + 100000, "#377eb8")
+        plt.plot(x.numpy(), model(x.unsqueeze(1).to(options.device)).cpu().numpy(), "#ff7f00")
 
     plt.title("Data")
     plt.xlabel("size [m^2]")
