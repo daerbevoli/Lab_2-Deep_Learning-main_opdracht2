@@ -30,9 +30,9 @@ class LinearRegression(nn.Module):
 
     def forward(self, x: torch.Tensor):
         """START TODO: forward the tensor x through the linear layer and return the outcome (replace None)"""
-        x = self.linear_layer(x)
+        out = self.linear_layer(x)
         """END TODO"""
-        return x
+        return out
 
 class Classifier(nn.Module):
     def __init__(self, options: ClassificationOptions):
