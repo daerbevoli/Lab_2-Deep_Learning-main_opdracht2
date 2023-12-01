@@ -41,21 +41,49 @@ class Classifier(nn.Module):
             Remember that each layer should contain 2 parts, a linear layer and a nonlinear activation function.
             Use options.hidden_sizes to store all hidden sizes, (for simplicity, you might want to 
             include the input and output as well).
+            The input size should be 28*28=784, because we are dealing with 28x28 MNIST images
+            The output size should be 10, because they correspond with the digits 0 to 9 that are the "classes"
         """
-        self.layer1 = nn.Sequential(
+        input_size = options.hidden_sizes[0]
+        hidden_size1 = options.hidden_sizes[1]
+        hidden_size2 = options.hidden_sizes[2]
+        # hidden_size3 = options.hidden_sizes[3]
+        # hidden_size4 = options.hidden_sizes[4]
+        output_size = options.hidden_sizes[3]
 
+        self.layer1 = nn.Sequential(
+            nn.Linear(input_size, hidden_size1),
+            nn.ReLU()
         )
         self.layer2 = nn.Sequential(
-
+            nn.Linear(hidden_size1, hidden_size2),
+            nn.ReLU()
         )
-        self.layer3 = nn.Sequential(
 
+        """self.layer3 = nn.Sequential(
+            nn.Linear(hidden_size2, hidden_size3),
+            nn.ReLU()
+        )
+
+        self.layer4 = nn.Sequential(
+            nn.Linear(hidden_size3, hidden_size4),
+            nn.ReLU()
+        )"""
+
+        self.layer3 = nn.Sequential(
+            nn.Linear(hidden_size2, output_size),
+            nn.Softmax(dim=1)      # dim=1 for batch processing (the function is applied to each item in the batch
+                                   # separately, rather than across all batches)
         )
         """END TODO"""
 
     def forward(self, x: torch.Tensor):
         """START TODO: forward tensor x through all layers."""
-
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)  # the output of the previous layer, becomes the input of the next
+        # x = self.layer4(x)
+        # x = self.layer5(x)
         """END TODO"""
         return x
 

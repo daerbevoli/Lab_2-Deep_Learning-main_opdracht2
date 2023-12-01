@@ -99,26 +99,33 @@ def test_lin_reg_plot(model: LinearRegression, test_data: DataLoader, options: L
 def train_classification_model(model: Classifier, optimizer: torch.optim.Optimizer,
                                dataset: MNISTDataset, options: ClassificationOptions):
     """START TODO: select an appropriate criterion (loss function)"""
-    criterion = None
+    criterion = nn.CrossEntropyLoss()  # A common loss function for a classification task that calculates the
+    # difference between the model's predictions and the true labels
     """END TODO"""
     for epoch in range(options.num_epochs):
         running_loss = 0
-        for x, y in dataset.train_loader:
-            y = y.to(options.device)
+        for x, y in dataset.train_loader:  # x are the given labels
+            y = y.to(options.device)  # y are the true labels
             """START TODO: fill in the gaps as mentioned by the comments"""
             # forward the data x through the model.
             # Note: x does not have the correct shape,
             # it should become (batch_size, -1), where the size -1 is inferred from other dimensions
             # (see TORCH.TENSOR.VIEW on the PyTorch documentation site)
+            x = x.view(x.size(0), -1)  # Reshape the tensor to (batch_size, -1)
+            x = x.to(options.device)  # Move x to the same device as y
+            outputs = model(x)
 
             # calculate the loss, use your previously defined criterion
-            loss = None
+            loss = criterion(outputs, y)
+
             # zero out all gradients
+            optimizer.zero_grad()
 
             # propagate the loss backward
+            loss.backward()
 
             # use your optimizer to perform an update step
-
+            optimizer.step()
             """END TODO"""
             running_loss += loss.item()
         print(f'epoch [{epoch + 1}/{options.num_epochs}]: ', end="")

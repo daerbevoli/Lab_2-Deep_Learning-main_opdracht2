@@ -1,4 +1,5 @@
 import torch
+from torch import optim
 
 from datasets.mnist_dataset import MNISTDataset
 from models.models import Classifier, ClassifierVariableLayers
@@ -16,11 +17,14 @@ if __name__ == "__main__":
 
     """START TODO: fill in the missing parts"""
     # create a Classifier instance named model
-    model = None
-    model.to(options.device)
-    # define the opimizer
+    model = Classifier(options)
+    model.to(options.device)  # Moves the model to the specified device
+
+    # define the optimizer
+    optimizer = optim.Adam(model.parameters(), lr=options.lr)
 
     # train the model
+    train_classification_model(model, optimizer, dataset, options)
 
     """END TODO"""
 
